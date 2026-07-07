@@ -379,17 +379,152 @@
             margin-bottom: 0;
         }
 
+        .chat-log { display: grid; gap: 14px; font-size: 1.05rem; }
+        .chat-bubble {
+            padding: 14px 18px;
+            border-radius: 20px;
+            line-height: 1.5;
+            max-width: 94%;
+        }
+        .chat-bubble small {
+            display: block;
+            color: #06b6d4;
+            font-family: var(--font-heading);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin-bottom: 6px;
+        }
+        .chat-bubble.guest {
+            background: rgba(6,182,212,0.14);
+            color: #F8FAFC;
+            justify-self: end;
+            border-bottom-right-radius: 6px;
+        }
+        .chat-bubble.ai {
+            background: rgba(255,255,255,0.06);
+            color: #E4E4E7;
+            justify-self: start;
+            border-bottom-left-radius: 6px;
+        }
+        .chat-alert {
+            margin-top: 2px;
+            padding: 13px 18px;
+            border-radius: 16px;
+            background: rgba(249,115,22,0.12);
+            border: 1px solid rgba(249,115,22,0.35);
+            color: #fdba74;
+            font-size: 0.95rem;
+            font-family: var(--font-heading);
+        }
+        .img-ph {
+            border: 1px dashed var(--border-highlight);
+            border-radius: 22px;
+            background: rgba(255,255,255,0.02);
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-tech);
+            font-family: var(--font-heading);
+            font-size: 0.95rem;
+            padding: 18px;
+        }
+        .mini-row.compare-head,
+        .mini-row.compare-head span,
+        .mini-row.compare-head strong {
+            color: var(--text-main);
+            font-family: var(--font-heading);
+        }
+        .mini-row.compare-head { background: rgba(255,255,255,0.05); }
+        .qr-ph {
+            width: 148px;
+            height: 148px;
+            border: 1px dashed var(--border-highlight);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-tech);
+            font-family: var(--font-heading);
+            font-size: 0.85rem;
+            flex: 0 0 auto;
+        }
+        .arch-extra {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-top: 18px;
+        }
+        .flow.arch .flow-step { position: relative; }
+        .flow.arch .flow-step:not(:last-child)::after {
+            content: "\2192";
+            position: absolute;
+            right: -12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #06b6d4;
+            font-size: 1.15rem;
+            z-index: 3;
+        }
+        .ph { color: #f97316; font-family: var(--font-heading); font-style: normal; }
+
+        @page {
+            size: 16in 9in;
+            margin: 0;
+        }
+
         @media print {
-            body { background: white; height: auto; }
-            .presentation-container { box-shadow: none; height: auto; max-height: none; aspect-ratio: auto; background: white; }
-            .presentation-container::before { display: none; }
-            .slide { position: relative; opacity: 1; visibility: visible; height: 100vh; page-break-after: always; background: white; transform: none; padding: 40px; }
-            .slide-content h1, .slide-content h2, .slide-content h3 { color: #000; }
-            .slide-content p, .slide-content li, .metric span, .flow-step span, .mini-row, .roadmap-item p { color: #333; }
-            .slide-footer { color: #666; border-color: #ddd; }
-            .glass-card, .metric, .flow-step, .mini-row, .roadmap-item { background: transparent; border: 1px solid #ccc; filter: none; box-shadow: none; color: #000; }
-            .text-gradient { background: none; color: #000; -webkit-text-fill-color: #000; }
-            .controls, .back-home { display: none; }
+            html,
+            body.presentation-mode {
+                width: 16in;
+                height: auto;
+                margin: 0;
+                padding: 0;
+                display: block;
+                overflow: visible;
+                background: var(--bg-oled);
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .top-zone,
+            .controls-zone,
+            .controls,
+            .back-home {
+                display: none !important;
+            }
+
+            .presentation-container {
+                width: 16in;
+                height: auto;
+                max-width: none;
+                max-height: none;
+                aspect-ratio: auto;
+                overflow: visible;
+                box-shadow: none;
+                background: var(--bg-oled);
+            }
+
+            .slide,
+            .slide.active {
+                position: relative;
+                inset: auto;
+                width: 16in;
+                height: 9in;
+                opacity: 1;
+                visibility: visible;
+                transform: none;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            #slide-14 {
+                page-break-after: auto;
+                break-after: auto;
+            }
         }
     </style>
 </head>
@@ -409,10 +544,11 @@
                 <h1 class="text-gradient">C2-App-088<br>Aurelia Concierge</h1>
                 <p style="text-align: center; color: var(--text-main); font-size: 2rem; max-width: 980px; margin: 0 auto;">Trợ lý AI 24/7 cho khu nghỉ dưỡng: chat tự nhiên, đặt dịch vụ, quản lý vận hành realtime.</p>
                 <p style="text-align: center; color: var(--text-muted); margin-top: 40px;">AI20K Build Cohort 2 / 2026</p>
+                <p style="text-align: center; color: #06b6d4; font-family: var(--font-heading); margin-top: 6px;">Live demo: c2-app-088.hadp.id.vn</p>
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Aurelia Concierge</span>
-                <span>Slide 1 / 12</span>
+                <span>Slide 1 / 14</span>
             </div>
         </div>
 
@@ -438,7 +574,7 @@
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Problem</span>
-                <span>Slide 2 / 12</span>
+                <span>Slide 2 / 14</span>
             </div>
         </div>
 
@@ -466,13 +602,41 @@
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Solution</span>
-                <span>Slide 3 / 12</span>
+                <span>Slide 3 / 14</span>
             </div>
         </div>
 
         <div class="slide" id="slide-4">
+            <div class="slide-content grid-2">
+                <div>
+                    <h2>3. Cơ hội thị trường</h2>
+                    <p>Ngành lưu trú đang tăng tốc số hóa vận hành, nhưng phần lớn giải pháp mới dừng ở booking/PMS — khoảng trống nằm ở lớp hội thoại AI có khả năng thực thi.</p>
+                    <ul>
+                        <li><span class="accent-cyan">Thị trường mục tiêu:</span> resort, boutique hotel và chuỗi lưu trú tầm trung–cao cấp.</li>
+                        <li><span class="accent-cyan">Why now:</span> khách đã quen chat làm kênh phục vụ chính; chi phí nhân sự dịch vụ tăng.</li>
+                        <li><span class="accent-cyan">Điểm vào:</span> pilot một resort rồi mở rộng theo chuỗi.</li>
+                    </ul>
+                </div>
+                <div class="glass-card">
+                    <div class="eyebrow-slide">Market sizing</div>
+                    <div class="metric-row" style="grid-template-columns: 1fr 1fr; margin-top: 8px;">
+                        <div class="metric"><strong><span class="ph">__</span></strong><span>Số resort/hotel mục tiêu (SAM).</span></div>
+                        <div class="metric"><strong>$<span class="ph">__</span></strong><span>Quy mô thị trường/năm (TAM).</span></div>
+                        <div class="metric"><strong><span class="ph">__</span>%</strong><span>Tăng trưởng số hóa hằng năm.</span></div>
+                        <div class="metric"><strong><span class="ph">__</span></strong><span>Resort pilot mục tiêu năm đầu.</span></div>
+                    </div>
+                    <p style="margin: 18px 0 0; font-size: 0.95rem;">* Số liệu điền sau từ nghiên cứu thị trường.</p>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>C2-App-088 / Market</span>
+                <span>Slide 4 / 14</span>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-5">
             <div class="slide-content">
-                <h2>3. Sản phẩm cho hai nhóm người dùng</h2>
+                <h2>4. Sản phẩm cho ba nhóm người dùng</h2>
                 <div class="grid-3">
                     <div class="glass-card">
                         <h3 style="font-size: 1.75rem; margin-bottom: 18px; color:#06b6d4;">Khách lưu trú</h3>
@@ -491,39 +655,45 @@
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Product Surface</span>
-                <span>Slide 4 / 12</span>
+                <span>Slide 5 / 14</span>
             </div>
         </div>
 
-        <div class="slide" id="slide-5">
+        <div class="slide" id="slide-6">
             <div class="slide-content">
-                <h2>4. Kiến trúc tổng quan</h2>
-                <div class="flow">
+                <h2>5. Kiến trúc tổng quan</h2>
+                <div class="flow arch">
                     <div class="flow-step"><b>Frontend</b><span>React 19, Vite, Tailwind cho guest chat và staff dashboard.</span></div>
                     <div class="flow-step"><b>API</b><span>FastAPI async, REST endpoints, WebSocket và SSE fallback.</span></div>
                     <div class="flow-step"><b>Agent</b><span>LangGraph loop: input processing, LLM, tools, response.</span></div>
                     <div class="flow-step"><b>Data</b><span>PostgreSQL 17 + pgvector cho nghiệp vụ và vector store.</span></div>
                     <div class="flow-step"><b>RAG</b><span>Qdrant index cho thông tin resort, policy, dịch vụ, FAQ.</span></div>
                 </div>
-                <div class="glass-card" style="margin-top: 34px;">
+                <div class="arch-extra">
+                    <div class="flow-step"><b>Memory · Mem0</b><span>Ghi nhớ sở thích và lịch sử khách qua nhiều lần lưu trú (cross-stay).</span></div>
+                    <div class="flow-step"><b>Realtime Manager</b><span>WebSocket push tức thì tới staff dashboard, SSE fallback khi cần.</span></div>
+                </div>
+                <div class="glass-card" style="margin-top: 24px;">
                     <p style="margin:0; text-align:center;"><strong class="accent-cyan">Flow chính:</strong> Guest gửi tin nhắn &rarr; Agent suy luận và gọi tools &rarr; Guest xác nhận &rarr; Hệ thống thực thi &rarr; Staff nhận realtime update.</p>
                 </div>
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Architecture</span>
-                <span>Slide 5 / 12</span>
+                <span>Slide 6 / 14</span>
             </div>
         </div>
 
-        <div class="slide" id="slide-6">
+        <div class="slide" id="slide-7">
             <div class="slide-content grid-2">
                 <div>
-                    <h2>5. AI Agent & Automation</h2>
+                    <h2>6. AI Agent & Automation</h2>
                     <p>Agent không chỉ trả lời. Nó hiểu ý định, tạo preview hành động, chờ khách xác nhận và mới thực thi vào hệ thống.</p>
                     <ul>
+                        <li><span class="accent-cyan">get_resort_info:</span> tra cứu thông tin resort, tiện ích, chính sách qua RAG.</li>
                         <li><span class="accent-cyan">suggest_service_request:</span> tạo ticket housekeeping hoặc vấn đề phòng.</li>
                         <li><span class="accent-cyan">suggest_booking:</span> đề xuất đặt restaurant, spa hoặc dịch vụ.</li>
                         <li><span class="accent-cyan">check_availability:</span> kiểm tra capacity trước khi xác nhận.</li>
+                        <li><span class="accent-cyan">get_request_status:</span> theo dõi trạng thái yêu cầu đang xử lý.</li>
                         <li><span class="accent-cyan">escalate_to_staff:</span> chuyển ca nhạy cảm hoặc phức tạp sang người thật.</li>
                     </ul>
                 </div>
@@ -537,33 +707,7 @@
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Agent</span>
-                <span>Slide 6 / 12</span>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-7">
-            <div class="slide-content grid-2">
-                <div class="glass-card">
-                    <h3 style="font-size: 1.9rem; margin-bottom: 22px;">Từ phản ứng sang chủ động</h3>
-                    <div class="metric-row" style="grid-template-columns: 1fr; margin-top: 0;">
-                        <div class="metric"><strong>Realtime</strong><span>WebSocket push tức thì tới staff dashboard.</span></div>
-                        <div class="metric"><strong>SLA</strong><span>Cảnh báo yêu cầu sắp hoặc đã vượt thời gian xử lý.</span></div>
-                        <div class="metric"><strong>Memory</strong><span>Cá nhân hóa theo sở thích qua nhiều lần lưu trú.</span></div>
-                    </div>
-                </div>
-                <div>
-                    <h2>6. Giá trị tạo ra</h2>
-                    <ul>
-                        <li><span class="accent-cyan">Giảm tải nhân viên:</span> câu hỏi lặp lại và yêu cầu đơn giản được xử lý tự động.</li>
-                        <li><span class="accent-cyan">Tăng tốc phản hồi:</span> request mới, cảnh báo và trạng thái được đẩy realtime.</li>
-                        <li><span class="accent-cyan">Cá nhân hóa dịch vụ:</span> khách quay lại không phải bắt đầu từ đầu.</li>
-                        <li><span class="accent-cyan">Ổn định chất lượng:</span> câu trả lời dựa trên knowledge base, ít phụ thuộc từng ca trực.</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="slide-footer">
-                <span>C2-App-088 / Value</span>
-                <span>Slide 7 / 12</span>
+                <span>Slide 7 / 14</span>
             </div>
         </div>
 
@@ -577,11 +721,13 @@
                     <div class="mini-row"><strong>Vector Search</strong><span>Qdrant</span><span>REST API, filtering tốt, phù hợp triển khai nhanh.</span></div>
                     <div class="mini-row"><strong>Frontend</strong><span>React 19 + Vite + Tailwind</span><span>Giao diện hiện đại, hot reload nhanh cho vòng lặp demo.</span></div>
                     <div class="mini-row"><strong>Realtime</strong><span>WebSocket + SSE fallback</span><span>Push update tức thì cho cả guest và staff.</span></div>
+                    <div class="mini-row"><strong>Migrations</strong><span>Alembic</span><span>Version control schema an toàn cho database.</span></div>
+                    <div class="mini-row"><strong>Memory</strong><span>Mem0</span><span>Cá nhân hóa xuyên suốt nhiều lần lưu trú của khách.</span></div>
                 </div>
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Stack</span>
-                <span>Slide 8 / 12</span>
+                <span>Slide 8 / 14</span>
             </div>
         </div>
 
@@ -589,31 +735,79 @@
             <div class="slide-content grid-2">
                 <div>
                     <h2>8. Demo scenario</h2>
-                    <p>Một khách muốn đặt bàn ăn tối, hỏi giờ mở cửa hồ bơi và yêu cầu thêm khăn trong phòng.</p>
+                    <p>Khách quen quay lại resort — Aurelia nhận ra sở thích cũ, xử lý yêu cầu và cảnh báo staff khi cần.</p>
                     <ul>
-                        <li>AI trả lời thông tin hồ bơi bằng RAG.</li>
-                        <li>AI tạo preview booking và yêu cầu khách xác nhận.</li>
-                        <li>Housekeeping ticket được tạo và đẩy tới dashboard staff.</li>
-                        <li>Nếu SLA rủi ro, hệ thống cảnh báo để nhân viên ưu tiên.</li>
+                        <li><span class="accent-cyan">Memory:</span> chào đúng tên, gợi ý theo sở thích đã ghi nhận.</li>
+                        <li><span class="accent-cyan">RAG:</span> trả lời giờ mở cửa hồ bơi từ knowledge base.</li>
+                        <li><span class="accent-cyan">Action:</span> tạo preview booking và housekeeping ticket, chờ xác nhận.</li>
+                        <li><span class="accent-orange">SLA alert:</span> nếu rủi ro trễ, hệ thống đẩy cảnh báo tới staff.</li>
                     </ul>
+                    <div class="img-ph" style="margin-top: 6px;">Screenshot guest chat / staff dashboard sẽ thêm sau (docs/…)</div>
                 </div>
                 <div class="glass-card">
-                    <h3 style="font-size: 1.9rem; margin-bottom: 22px;">Guest chat sample</h3>
-                    <div style="display:grid; gap:16px; font-size:1.1rem;">
-                        <div style="padding:18px 20px; border-radius:22px; background:rgba(6,182,212,0.12); color:#F8FAFC;">Tối nay còn bàn cho 2 người không? Tôi cũng cần thêm khăn.</div>
-                        <div style="padding:18px 20px; border-radius:22px; background:rgba(255,255,255,0.06); color:#A1A1AA;">Aurelia kiểm tra nhà hàng, tạo preview booking và gửi housekeeping request sau khi khách xác nhận.</div>
+                    <h3 style="font-size: 1.7rem; margin-bottom: 18px;">Guest chat sample</h3>
+                    <div class="chat-log">
+                        <div class="chat-bubble ai"><small>Aurelia</small>Chào mừng anh Minh quay lại! Em nhớ anh thích phòng yên tĩnh và bơi buổi sáng — hồ bơi mở cửa 6:00 ạ.</div>
+                        <div class="chat-bubble guest">Tối nay còn bàn cho 2 người không? Cho anh thêm khăn phòng 507 nhé.</div>
+                        <div class="chat-bubble ai"><small>Aurelia</small>Dạ còn bàn 19:30. Em tạo preview đặt bàn và housekeeping ticket khăn, anh xác nhận giúp em nhé.</div>
+                        <div class="chat-alert">⚠ SLA risk · Housekeeping #HK-231 → đẩy tới staff dashboard để ưu tiên.</div>
                     </div>
                 </div>
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Demo</span>
-                <span>Slide 9 / 12</span>
+                <span>Slide 9 / 14</span>
             </div>
         </div>
 
         <div class="slide" id="slide-10">
+            <div class="slide-content grid-2">
+                <div class="glass-card">
+                    <h3 style="font-size: 1.7rem; margin-bottom: 18px;">Impact mục tiêu</h3>
+                    <div class="metric-row" style="grid-template-columns: 1fr 1fr; margin-top: 0;">
+                        <div class="metric"><strong><span class="ph">__</span>%</strong><span>Giảm thời gian chờ phản hồi của khách.</span></div>
+                        <div class="metric"><strong><span class="ph">__</span>%</strong><span>Yêu cầu được AI tự động hóa, không cần staff.</span></div>
+                        <div class="metric"><strong><span class="ph">__</span>h</strong><span>Giờ nhân viên tiết kiệm mỗi tháng.</span></div>
+                        <div class="metric"><strong><span class="ph">__</span></strong><span>Điểm hài lòng khách (CSAT) mục tiêu.</span></div>
+                    </div>
+                    <p style="margin: 16px 0 0; font-size: 0.95rem;">* Số liệu điền sau từ pilot.</p>
+                </div>
+                <div>
+                    <h2>9. Giá trị tạo ra</h2>
+                    <ul>
+                        <li><span class="accent-cyan">Giảm tải nhân viên:</span> câu hỏi lặp lại và yêu cầu đơn giản được xử lý tự động.</li>
+                        <li><span class="accent-cyan">Tăng tốc phản hồi:</span> request mới, cảnh báo và trạng thái được đẩy realtime.</li>
+                        <li><span class="accent-cyan">Cá nhân hóa dịch vụ:</span> khách quay lại không phải bắt đầu từ đầu.</li>
+                        <li><span class="accent-cyan">Ổn định chất lượng:</span> câu trả lời dựa trên knowledge base, ít phụ thuộc từng ca trực.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>C2-App-088 / Value</span>
+                <span>Slide 10 / 14</span>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-11">
             <div class="slide-content">
-                <h2>9. Lộ trình phát triển</h2>
+                <h2>10. Khác biệt cạnh tranh</h2>
+                <div class="mini-table">
+                    <div class="mini-row compare-head"><strong>Tiêu chí</strong><span>Chatbot / cách làm hiện tại</span><span>Aurelia Concierge</span></div>
+                    <div class="mini-row"><strong>Thực thi yêu cầu</strong><span>Chỉ trả lời, phải chuyển người khác đặt.</span><span>Tạo booking/ticket ngay trong hội thoại.</span></div>
+                    <div class="mini-row"><strong>Cá nhân hóa</strong><span>Không nhớ giữa các lần lưu trú.</span><span>Memory (Mem0) nhớ sở thích cross-stay.</span></div>
+                    <div class="mini-row"><strong>Vận hành staff</strong><span>Inbox rời rạc, khó ưu tiên việc.</span><span>Dashboard realtime và cảnh báo SLA.</span></div>
+                    <div class="mini-row"><strong>Kiểm soát</strong><span>Tự động hoàn toàn hoặc thủ công hoàn toàn.</span><span>Human-in-loop: xác nhận trước khi thực thi.</span></div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>C2-App-088 / Competition</span>
+                <span>Slide 11 / 14</span>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-12">
+            <div class="slide-content">
+                <h2>11. Lộ trình phát triển</h2>
                 <div class="roadmap">
                     <div class="roadmap-item">
                         <small>Phase 1</small>
@@ -639,51 +833,60 @@
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Roadmap</span>
-                <span>Slide 10 / 12</span>
+                <span>Slide 12 / 14</span>
             </div>
         </div>
 
-        <div class="slide" id="slide-11">
-            <div class="slide-content grid-2">
-                <div class="glass-card">
-                    <h3 style="font-size: 1.9rem; margin-bottom: 22px;">Hướng thương mại hóa</h3>
-                    <ul style="padding-left: 28px;">
-                        <li><strong class="accent-cyan">SaaS cho resort:</strong> subscription theo số phòng hoặc số nhân viên.</li>
-                        <li><strong class="accent-orange">Implementation package:</strong> setup knowledge base, quy trình SLA và tích hợp PMS/booking.</li>
-                        <li><strong class="accent-cyan">Enterprise license:</strong> tùy biến workflow, dữ liệu và chính sách bảo mật.</li>
-                    </ul>
+        <div class="slide" id="slide-13">
+            <div class="slide-content">
+                <h2>12. Đội ngũ</h2>
+                <div class="grid-3">
+                    <div class="glass-card">
+                        <h3 style="font-size: 1.6rem; margin-bottom: 10px; color:#06b6d4;">[Tên 1]</h3>
+                        <p style="margin-bottom: 6px;">Backend + AI Agent</p>
+                        <p style="font-size: 0.95rem; margin: 0; color: var(--text-tech);">MSSV: [MSSV]</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3 style="font-size: 1.6rem; margin-bottom: 10px; color:#f97316;">[Tên 2]</h3>
+                        <p style="margin-bottom: 6px;">Frontend</p>
+                        <p style="font-size: 0.95rem; margin: 0; color: var(--text-tech);">MSSV: [MSSV]</p>
+                    </div>
+                    <div class="glass-card">
+                        <h3 style="font-size: 1.6rem; margin-bottom: 10px; color:#06b6d4;">[Tên 3]</h3>
+                        <p style="margin-bottom: 6px;">DevOps + Infra</p>
+                        <p style="font-size: 0.95rem; margin: 0; color: var(--text-tech);">MSSV: [MSSV]</p>
+                    </div>
                 </div>
-                <div>
-                    <h2>10. Vì sao đáng làm ngay?</h2>
-                    <p>Resort đã có nhu cầu số hóa vận hành, nhưng khoảng trống nằm ở trải nghiệm hội thoại có khả năng thực thi và dashboard staff realtime.</p>
-                    <ul>
-                        <li>Khách quen với chat như kênh phục vụ chính.</li>
-                        <li>Nhân viên cần giảm việc lặp lại, không cần thêm một inbox rời rạc.</li>
-                        <li>AI agent tạo khác biệt khi gắn trực tiếp với quy trình vận hành.</li>
-                    </ul>
-                </div>
+                <p style="text-align:center; margin-top: 34px;">AI20K Build Cohort 2 — C2-App-088.</p>
             </div>
             <div class="slide-footer">
-                <span>C2-App-088 / Business</span>
-                <span>Slide 11 / 12</span>
+                <span>C2-App-088 / Team</span>
+                <span>Slide 13 / 14</span>
             </div>
         </div>
 
-        <div class="slide" id="slide-12">
+        <div class="slide" id="slide-14">
             <div class="slide-content" style="text-align: center;">
-                <h2>11. Lời kêu gọi</h2>
-                <div class="glass-card" style="margin: 36px auto 0; max-width: 980px; text-align: left;">
-                    <ul style="font-size: 1.45rem; margin: 0; padding-left: 28px;">
-                        <li><strong class="accent-cyan">Pilot partner:</strong> resort hoặc boutique hotel để thử nghiệm quy trình guest chat + staff dashboard.</li>
+                <h2>13. Lời kêu gọi</h2>
+                <div class="glass-card" style="margin: 28px auto 0; max-width: 980px; text-align: left;">
+                    <ul style="font-size: 1.35rem; margin: 0; padding-left: 28px;">
+                        <li><strong class="accent-cyan">Pilot partner:</strong> resort hoặc boutique hotel để thử nghiệm guest chat + staff dashboard.</li>
                         <li><strong class="accent-orange">Advisor:</strong> chuyên gia vận hành khách sạn, concierge, SLA và tích hợp PMS.</li>
                         <li><strong class="accent-cyan">Technical support:</strong> mở rộng connector, đánh giá bảo mật dữ liệu khách và production hardening.</li>
                     </ul>
                 </div>
-                <h3 class="text-gradient" style="font-size: 3.2rem; margin-top: 52px;">Q & A</h3>
+                <div style="display:flex; align-items:center; justify-content:center; gap:40px; margin-top: 36px;">
+                    <div class="qr-ph">QR<br>live demo</div>
+                    <div style="text-align:left;">
+                        <p style="margin:0 0 8px;"><strong class="accent-cyan">Demo:</strong> c2-app-088.hadp.id.vn</p>
+                        <p style="margin:0 0 8px;"><strong class="accent-cyan">Email:</strong> vinh12102004@gmail.com</p>
+                        <h3 class="text-gradient" style="font-size: 2.6rem; margin-top: 10px;">Q &amp; A</h3>
+                    </div>
+                </div>
             </div>
             <div class="slide-footer">
                 <span>C2-App-088 / Ask</span>
-                <span>Slide 12 / 12</span>
+                <span>Slide 14 / 14</span>
             </div>
         </div>
 
